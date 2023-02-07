@@ -52,11 +52,13 @@ export default function ReceiveScreen() {
   return (
     <View style={[CONTAINER, {paddingVertical: 15}]}>
       <Text style={TEXT.MEDIUM}>Scan to receive</Text>
-      <QRCode
-        style={styles.qrStyle}
-        // size="1000"
-        value={inputValue === '' ? '0' : inputValue}
-      />
+      <View style={styles.qrBox}>
+        <QRCode
+          // style={styles.qrStyle}
+          size={200}
+          value={inputValue === '' ? '0' : inputValue}
+        />
+      </View>
 
       <View style={styles.copyBox}>
         <View style={styles.box}>
@@ -177,8 +179,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '95%',
   },
-  qrStyle: {
-    // siz
-    width: 50,
+  qrBox: {
+    width: '50%',
+    padding: 2,
+    backgroundColor: 'white',
+    alignItems: 'center',
+    margin: 10,
   },
 });

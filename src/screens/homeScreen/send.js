@@ -15,7 +15,9 @@ import {get, post} from '../../api/api';
 export default function SendScreen() {
   const [contact, setContact] = useState('');
   const [userInput, setUserInput] = useState('');
-  const [userData, setUserData] = useState('');
+  const [userData, setUserData] = useState({
+    data: [{id: '', name: '', profile_image: ''}],
+  });
   const [showUser, setShowUser] = useState(false);
 
   const GetUserName = async () => {
@@ -58,17 +60,21 @@ export default function SendScreen() {
             onChangeText={text => setUserInput(text)}
             onBlur={() => GetUserName()}
           />
-          <TouchableOpacity
-            style={showUser ? styles.show : styles.hide}
-            onPress={() => selectUser()}>
-            <View style={styles.searchUser}>
-              <Image
-                style={styles.profileImg}
-                source={require('../../asset/img/defaultProfile.png')}
-              />
-              <Text style={styles.textUser}>ashish</Text>
-            </View>
-          </TouchableOpacity>
+          {userData.data.map(user => {
+            return (
+              <TouchableOpacity
+                style={showUser ? styles.show : styles.hide}
+                onPress={() => selectUser()}>
+                <View style={styles.searchUser}>
+                  <Image
+                    style={styles.profileImg}
+                    source={require('../../asset/img/defaultProfile.png')}
+                  />
+                  <Text style={styles.textUser}>{user.name}</Text>
+                </View>
+              </TouchableOpacity>
+            );
+          })}
           {/* <GetUserName /> */}
           <Text onPress={() => alert('copy text')} style={styles.text}>
             <Image
@@ -165,6 +171,10 @@ const styles = StyleSheet.create({
   show: {
     display: 'flex',
     width: '100%',
+    backgroundColor: 'black',
+    position: 'absolute',
+    zIndex: 2,
+    bottom: -25,
   },
   hide: {
     display: 'none',
